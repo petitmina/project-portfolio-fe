@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { Form, Button, Container } from "react-bootstrap";
-import { useNavigate } from "react-router";
+import React, { useEffect, useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../reducer/userReducer";
+import { useNavigate } from "react-router";
+import { registerUser } from "../../reducer/userReducer";
 
-const Register = () => {
-  const [formData, setFormData] = useState({
+const AdminPage = () => {
+  const [adminFormData, setAdminFormData] = useState({
     email: "",
     name: "",
     password: "",
@@ -16,40 +15,40 @@ const Register = () => {
   const dispatch = useDispatch();
   const [passwordError, setPasswordError] = useState("");
   const { loading } = useSelector((state) => state.user);
-  // const [error, setError] = useState('')
 
-  const register = (event) => {
+  const adminRegister = (event) => {
     event.preventDefault();
-    const { email, name, password, confirmedPassword } = formData;
+    const { email, name, password, confirmedPassword } = adminFormData;
 
     if (password !== confirmedPassword) {
-      setPasswordError("비밀번호가 일치하지 않습니다");
+      setPasswordError("패스워드가 일치하지 않습니다");
       return;
     }
     setPasswordError("");
     setPasswordError(false);
-    dispatch(registerUser({ email, name, password }));
-    console.log("lll", register);
+
+    dispatch(registerUser({ email, name, password, level: "admin" }));
   };
 
   const handleChange = (event) => {
     event.preventDefault();
     const { id, value } = event.target;
-    setFormData({ ...formData, [id]: value });
+    setAdminFormData({ ...adminFormData, [id]: value});
+    
   };
 
   useEffect(() => {
     if (loading === true) {
-      navigate("/login");
-    }
-  }, [loading]);
-
+    navigate("/login");
+  }
+  }, [])
+  
   return (
     <>
-      <Container className="register-form mt-5 w-25">
-        <Form onSubmit={register}>
+      <Container className="admin-form mt-5 w-25">
+        <Form onSubmit={adminRegister}>
           <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Admin Email</Form.Label>
             <Form.Control
               type="email"
               id="email"
@@ -59,9 +58,9 @@ const Register = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Admin name</Form.Label>
             <Form.Control
-              type="text"
+              type="name"
               id="name"
               placeholder="이름을 입력하세요"
               onChange={handleChange}
@@ -69,7 +68,7 @@ const Register = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Admin Password</Form.Label>
             <Form.Control
               type="password"
               id="password"
@@ -79,27 +78,24 @@ const Register = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Confirmed Password</Form.Label>
+            <Form.Label>Admin confirmedPassword</Form.Label>
             <Form.Control
               type="password"
               id="confirmedPassword"
-              placeholder="비밀번호를 한 번더 입력하세요"
+              placeholder="비밀번호를 입력하세요"
               onChange={handleChange}
               required
             />
           </Form.Group>
-          <Form.Control.Feedback type="invalid">
-            {passwordError}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{passwordError}</Form.Control.Feedback>
           <br />
           <Button variant="secondary" type="submit">
-            회원가입 하기
+            관리자 회원가입 하기
           </Button>
-          {/* <div className="d-grid gap-1"></div> */}
         </Form>
       </Container>
     </>
   );
 };
 
-export default Register;
+export default AdminPage;

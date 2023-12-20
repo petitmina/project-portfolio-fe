@@ -3,11 +3,12 @@ import React from "react";
 // const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
 import "../styles/MainNavbar.style.css";
 import { useDispatch } from "react-redux";
+import { logout } from "../reducer/userReducer";
 
 const MainNavbar = ({ user }) => {
   const dispatch = useDispatch();
 
-  const logout = () => {
+  const handleLogout = () => {
     dispatch(logout());
   };
   
@@ -24,11 +25,11 @@ const MainNavbar = ({ user }) => {
         </div>
         <div className="nav-text">
           {user ? (
-            <a href="/" className="text-item">
+            <a href="/" onClick={handleLogout}  className="text-item">
               로그아웃
             </a>
           ) : (
-            <a href="/login" onClick={logout} className="text-item">
+            <a href="/login" className="text-item">
               로그인
             </a>
           )}

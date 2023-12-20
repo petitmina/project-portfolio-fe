@@ -37,9 +37,9 @@ export const logout = createAsyncThunk("user/logout", async () => {
 
 export const registerUser = createAsyncThunk(
   "user/registerUser",
-  async ({ email, name, password }, { fulfillWithValue, rejectWithValue }) => {
+  async ({ email, name, password, level }, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const response = await api.post("/user", { email, name, password });
+      const response = await api.post("/user", { email, name, password, level });
       console.log("222", response);
       return fulfillWithValue(response.data);
     } catch (error) {
@@ -60,7 +60,7 @@ const userSlice = createSlice({
     });
 
     builder.addCase(registerUser.fulfilled, (state) => {
-      state.loading = true;
+      state.loading = false;
       state.error = null;
     });
 

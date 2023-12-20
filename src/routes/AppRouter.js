@@ -6,7 +6,7 @@ import AllProduct from '../page/AllProduct';
 import ProductDetail from '../page/ProductDetail';
 import CartPage from '../page/CartPage';
 import PaymentPage from '../page/PaymentPage';
-import AdminPage from '../page/AdminPage';
+import AdminPage from '../page/admin/AdminPage';
 
 const AppRouter = () => {
   return (
