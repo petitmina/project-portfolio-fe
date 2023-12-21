@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { registerUser } from "../../reducer/userReducer";
 
-const AdminPage = () => {
+const AdminRegisterPage = () => {
   const [adminFormData, setAdminFormData] = useState({
     email: "",
     name: "",
@@ -98,4 +98,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default AdminRegisterPage;
