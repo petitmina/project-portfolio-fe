@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 
-const CountButton = () => {
+const CountButton = ({onQtyChange}) => {
     const [count, setCount] = useState(1);
 
     const increaseQty = () => {
-        setCount(count + 1)
+        const newQty = count + 1;
+        setCount(newQty);
+        onQtyChange(newQty);
       }
     
       const decreaseQty = () =>{
         if(count > 1) {
-            setCount(count - 1);
+          const newQty = count -1
+            setCount(newQty);
+            onQtyChange(newQty)
         }
       }
   return (

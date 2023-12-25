@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import "../App.css";
-// import "../style/common.style.css";
+import "../styles/common.style.css";
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
 const UPLOADPRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -21,8 +21,11 @@ class CloudinaryUploadWidget extends Component {
             .setAttribute("src", result.info.secure_url);
           this.props.uploadImage(result.info.secure_url);
         }
-      } //https://cloudinary.com/documentation/react_image_and_video_upload
+      } 
+      
     );
+    console.log('eee', myWidget)
+
     document.getElementById("upload_widget").addEventListener(
       "click",
       function () {

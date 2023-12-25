@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loginWithToken } from '../reducer/userReducer';
 
 const AppLayout = ({children}) => {
+
   const dispatch = useDispatch();
   const {user} = useSelector((state) => state.user);
 
@@ -13,6 +14,7 @@ const AppLayout = ({children}) => {
 
   return (
     <div>
+      
       <MainNavbar user={user}/>
       {children}
     </div>

@@ -1,39 +1,115 @@
-import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import Button from 'react-bootstrap/Button';
-import '../styles/ProductDetail.style.css';
+import React, { useEffect, useState } from "react";
+import { Col, Container, Row, Form, Dropdown } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import "../styles/ProductDetail.style.css";
 import CountButton from "../components/CountButton";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import { addToCart } from "../reducer/cartReducer";
+import CurrencyFormat from "react-currency-format";
+import { getProductDetail } from "../reducer/productReducer";
 
 const ProductDetail = () => {
+  const dispatch = useDispatch();
+  const selectedProduct = useSelector((state) => state.product.selectedProduct);
+  const { user } = useSelector((state) => state.user);
+  const [color, setColor] = useState("");
+  const [qty, setQty] = useState(1);
+  const [colorError, setColorError] = useState(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
+  const addItemToCart = () => {
+    if (color === "") {
+      setColorError(true);
+    }
+    if (!user) navigate("/login");
+    dispatch(addToCart({ id, color, qty }));
+  };
+
+  const selectColor = (value) => {
+    if (color) setColorError(true);
+    setColor(value);
+  };
+
+  useEffect(() => {
+    dispatch(getProductDetail(id));
+  }, [id]);
 
   return (
     <Container className="product-detail-container">
-        {/* 하드코드 나중에 수정하기 */}
+  
       <Row className="justify-content-center">
         <Col sm={6} className="text-center">
           <img
-            src="https://img.danawa.com/prod_img/500000/682/595/img/12595682_1.jpg?_v=20201102153055"
+            src={selectedProduct.image}
             alt="기본안경"
             width={240}
             variant="left"
           />
         </Col>
         <Col sm={6} className=" mb-5">
-          <div className="mb-1">기본 안경</div>
-          <div className="mb-1">₩ 50,000</div>
-          <div>가볍고 편안한 안경을 사용해보세요</div>
+          <div className="mb-1">{selectedProduct.name}</div>
+          <div className="mb-1">
+            {
+              <CurrencyFormat
+                value={selectedProduct.price}
+                displayType="text"
+                thousandSeparator={true}
+                prefix={"₩"}
+              />
+            }
+          </div>
+          <div>{selectedProduct.description}</div>
 
           <div className="mt-3">
-            <CountButton />
-            <div></div>
-          </div>
+            <Dropdown
+              className="size-drop-down"
+              variant={colorError ? "outline-danger" : "outline-dark"}
+              id="dropdown-basic"
+              align="start"
+              onSelect={(value) => selectColor(value)}
+            >
+              <Dropdown.Toggle
+                className="color-drop-down"
+                variant={colorError ? "outline-danger" : "outline-dark"}
+                id="dropdown-basic"
+                align="start"
+              >
+                {color === "" ? "Color 선택" : color.toUpperCase()}
+              </Dropdown.Toggle>
 
-          {/* 버튼을 누르면 제품과 qty보내기 */}
-          <Button variant="secondary" className="add-button mt-3">
-            장바구니에 추가 
-          </Button>
+              <Dropdown.Menu className="color-drop-down">
+                {Object.keys(selectedProduct.stock).length > 0 &&
+                  Object.keys(selectedProduct.stock).map((item) =>
+                    selectedProduct.stock[item] > 0 ? (
+                      <Dropdown.Item eventKey={item}>
+                        {item.toUpperCase()}
+                      </Dropdown.Item>
+                    ) : (
+                      <Dropdown.Item eventKey={item} disabled={true}>
+                        {item.toUpperCase()}
+                      </Dropdown.Item>
+                    )
+                  )}
+              </Dropdown.Menu>
+            </Dropdown>
+
+            <Form.Select>
+              <CountButton onQtyChange={(newQty) => setQty(newQty)} />
+            </Form.Select>
+
+            <div>{colorError && "색상과 수량을 선택해주세요"}</div>
+
+            {/* 버튼을 누르면 제품과 qty보내기 */}
+            <Button
+              variant="secondary"
+              className="add-button mt-3"
+              onClick={addItemToCart}
+            >
+              장바구니에 추가
+            </Button>
+          </div>
         </Col>
       </Row>
     </Container>

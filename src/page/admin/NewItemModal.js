@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Form, Row, Col, Button } from "react-bootstrap";
-import CloudinaryUploadWidget from "../../utils/CloudinaryUploadWiget";
+import CloudinaryUploadWidget from "../../utils/CloudinaryUploadWidget";
 import { useDispatch, useSelector } from "react-redux";
+import "../../styles/adminProduct.styles.css";
+import { createProduct, editProduct } from "../../reducer/productReducer";
 
 const InitialFormData = {
   sku: "",
@@ -22,7 +24,7 @@ const NewItemModal = ({ mode, showDialog, setShowDialog }) => {
   const dispatch = useDispatch();
 
   const selectedProduct = useSelector((state) => state.product);
-  const {error} = useSelector((state) => state.product);
+  const { error } = useSelector((state) => state.product);
   const [formData, setFormData] = useState(
     mode === "new" ? { InitialFormData } : selectedProduct
   );
@@ -39,24 +41,26 @@ const NewItemModal = ({ mode, showDialog, setShowDialog }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if(stock.length === 0) return setStockError(true);
+    if (stock.length === 0) return setStockError(true);
 
     const totalStock = stock.reduce((total, item) => {
-        return {...total, [item[0]]: parseInt(item[1])};
+      return { ...total, [item[0]]: parseInt(item[1]) };
     }, {});
 
     if (mode === "new") {
-        dispatch()
-        setShowDialog(false)
+      dispatch(createProduct({ ...formData, stock: totalStock }));
+      setShowDialog(false);
     } else {
-        dispatch()
-        setShowDialog(false);
+      dispatch(
+        editProduct({ ...formData, stock: totalStock }, selectedProduct._id)
+      );
+      setShowDialog(false);
     }
   };
 
   const handleChange = (event) => {
-    const {id, value} = event.target;
-    setFormData({ ...formData, [id]: value});
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value });
   };
 
   const addStock = (idx) => {
@@ -98,20 +102,20 @@ const NewItemModal = ({ mode, showDialog, setShowDialog }) => {
   };
 
   const uploadImage = (url) => {
-    setFormData({...formData, image: url});
+    setFormData({ ...formData, image: url });
   };
 
   useEffect(() => {
     if (showDialog) {
       if (mode === "edit") {
         setFormData(selectedProduct);
-        const stockArray =Object.keys(selectedProduct.stock).map((color) => [
-            color,
-            selectedProduct.stock[color],
+        const stockArray = Object.keys(selectedProduct.stock).map((color) => [
+          color,
+          selectedProduct.stock[color],
         ]);
-        setStock(stockArray)
+        setStock(stockArray);
       } else {
-        setFormData({...InitialFormData});
+        setFormData({ ...InitialFormData });
         setStock([]);
       }
     }
@@ -227,10 +231,10 @@ const NewItemModal = ({ mode, showDialog, setShowDialog }) => {
             <Form.Label>Image</Form.Label>
             <CloudinaryUploadWidget uploadImage={uploadImage} />
             <img
-              id="uploadedImage"
+              id="uploadedimage"
               src={formData.image}
               className="upload-image mt-2"
-              alt="uploadedImage"
+              alt="uploadedimage"
             />
           </Form.Group>
 
@@ -251,7 +255,7 @@ const NewItemModal = ({ mode, showDialog, setShowDialog }) => {
             <Form.Group as={Col} controlId="category">
               <Form.Label>Category</Form.Label>
               <Form.Control
-                as='select'
+                as="select"
                 multiple
                 onChange={onHandleCategory}
                 value={formData.category}
@@ -289,7 +293,6 @@ const NewItemModal = ({ mode, showDialog, setShowDialog }) => {
               Edit
             </Button>
           )}
-          ;
         </Row>
       </Form>
     </Modal>

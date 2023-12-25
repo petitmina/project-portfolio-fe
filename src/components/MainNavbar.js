@@ -4,18 +4,30 @@ import React from "react";
 import "../styles/MainNavbar.style.css";
 import { useDispatch } from "react-redux";
 import { logout } from "../reducer/userReducer";
+import { Link } from "react-router-dom";
+import { cartLogout } from "../reducer/cartReducer";
 
 const MainNavbar = ({ user }) => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(cartLogout())
   };
-  
+
   return (
     <div className="navbar-container">
+      <div className="check-admin">
+        <Link
+          to="/admin"
+          className="d-flex mt-1 mr-1 justify-content-end text-decoration-none variant-info"
+        >
+          Admin page
+        </Link>
+      </div>
+
       <div className="nav-first-line">
-        <div className="nav-logo">
+        <div className="nav-logo mb-4">
           <a href="/">
             <img
               src="https://www.logoyogo.com/web/wp-content/uploads/edd/2021/02/logoyogo-1-307.jpg"
@@ -25,7 +37,7 @@ const MainNavbar = ({ user }) => {
         </div>
         <div className="nav-text">
           {user ? (
-            <a href="/" onClick={handleLogout}  className="text-item">
+            <a href="/" onClick={handleLogout} className="text-item">
               로그아웃
             </a>
           ) : (

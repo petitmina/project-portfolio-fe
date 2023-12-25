@@ -12,6 +12,7 @@ import NewItemModal from "./NewItemModal";
 import AdminProductTable from "./AdminProductTable";
 import ReactPaginate from 'react-paginate';
 
+
 const AdminProduct = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -80,7 +81,7 @@ const AdminProduct = () => {
             field="name"
           />
         </div>
-        <Button onClick={handleClickNewItem}>Add New Item</Button>
+        <Button className="mb-3" onClick={handleClickNewItem}>Add New Item</Button>
 
         <AdminProductTable
           header={tableHeader}
@@ -89,29 +90,29 @@ const AdminProduct = () => {
           openEditFrom={openEditForm}
         />
         {/* 페이지네이션 작성하기 */}
-        <ReactPaginate 
-            nextLabel='next >'
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
-            pageCount={totalPageNum}
-            forcePage={searchQuery.page - 1}
-            previousLabel='< previous'
-            renderOnZeroPageCount={null}
-            pageClassName="page-item"
-            pageLinkClassName="page-link"
-            previousClassName="page-item"
-            previousLinkClassName="page-link"
-            nextClassName="page-item"
-            nextLinkClassName="page-link"
-            breakLabel='...'
-            breakClassName="page-item"
-            breakLinkClassName="page-link"
-            containerClassName="pagination"
-            activeClassName="active"
-            className="display-center list-style-none"
+        <ReactPaginate
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={totalPageNum}
+          forcePage={searchQuery.page - 1}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakLabel="..."
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+          className="display-center list-style-none"
         />
       </Container>
-      
+
       <NewItemModal
         mode={mode}
         showDialog={showDialog}
