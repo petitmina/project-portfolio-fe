@@ -66,7 +66,6 @@ const AdminProduct = () => {
     setShowDialog(true);
   };
 
-//   페이지네이션 작성후 만들기
     const handlePageClick = ({selected}) => {
       setSearchQuery({...searchQuery, page: selected + 1 })
     };
