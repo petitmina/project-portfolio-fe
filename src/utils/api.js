@@ -8,7 +8,9 @@ const api = axios.create({
   baseURL: LOCAL_BACKEND,
   headers: {
     "Content-Type": "application/json",
+    // authorization: `Bearer ${sessionStorage.getItem("token") !== null ? sessionStorage.getItem('token') : null}`,
     authorization: `Bearer ${sessionStorage.getItem("token")}`,
+
   },
 });
 /**

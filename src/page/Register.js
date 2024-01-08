@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../reducer/userReducer";
+import { userActions } from "../actions/userAction";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const Register = () => {
   const { loading } = useSelector((state) => state.user);
   // const [error, setError] = useState('')
 
-  const register = (event) => {
+  const signUp = (event) => {
     event.preventDefault();
     const { email, name, password, confirmedPassword } = formData;
 
@@ -28,8 +28,7 @@ const Register = () => {
     }
     setPasswordError("");
     setPasswordError(false);
-    dispatch(registerUser({ email, name, password }));
-    console.log("lll", register);
+    dispatch(userActions.registerUser({email, name, password, level: "customer"}), navigate);
   };
 
   const handleChange = (event) => {
@@ -38,16 +37,12 @@ const Register = () => {
     setFormData({ ...formData, [id]: value });
   };
 
-  useEffect(() => {
-    if (loading === true) {
-      navigate("/login");
-    }
-  }, [loading]);
-
+  
+ 
   return (
     <>
       <Container className="register-form mt-5 w-25">
-        <Form onSubmit={register}>
+        <Form onSubmit={signUp}>
           <Form.Group className="mb-3">
             <Form.Label>Email</Form.Label>
             <Form.Control

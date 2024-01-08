@@ -33,13 +33,16 @@ const AdminProductTable = ({ header, data, deleteItem, openEditForm }) => {
                 </th>
                 <th>
                   {Object.keys(item.stock).map((color, index) => (
-                    <div>
+                    <div key={index}>
                       {color}:{item.stock[color]}
                     </div>
                   ))}
                 </th>
-                <th>{item.status}</th>
                 <th>
+                  <img src={item.image} width={100} alt="image"/>
+                </th>
+                <th>{item.status}</th>
+                <th >
                   <Button
                     size="sm"
                     variant="danger"

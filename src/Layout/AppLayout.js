@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import MainNavbar from '../components/MainNavbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginWithToken } from '../reducer/userReducer';
+import { userActions } from '../actions/userAction';
 
 const AppLayout = ({children}) => {
 
@@ -9,8 +9,8 @@ const AppLayout = ({children}) => {
   const {user} = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(loginWithToken());
-  }, []);
+    dispatch(userActions.loginWithToken())
+  }, [])
 
   return (
     <div>

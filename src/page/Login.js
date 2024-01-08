@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { loginWithEmail } from "../reducer/userReducer";
+import { userActions } from "../actions/userAction";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Login = () => {
   const loginSubmit = (event) => {
     event.preventDefault();
     const { email, password } = loginData;
-    dispatch(loginWithEmail({email, password}));
+    dispatch(userActions.loginWithEmail({email, password}));
   };
 
   const handleChangeLogin = (event) => {

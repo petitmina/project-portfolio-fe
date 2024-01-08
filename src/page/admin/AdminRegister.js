@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { registerUser } from "../../reducer/userReducer";
+import { userActions } from "../../actions/userAction";
 
 const AdminRegisterPage = () => {
   const [adminFormData, setAdminFormData] = useState({
@@ -14,7 +14,6 @@ const AdminRegisterPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [passwordError, setPasswordError] = useState("");
-  const { loading } = useSelector((state) => state.user);
 
   const adminRegister = (event) => {
     event.preventDefault();
@@ -27,22 +26,17 @@ const AdminRegisterPage = () => {
     setPasswordError("");
     setPasswordError(false);
 
-    dispatch(registerUser({ email, name, password, level: "admin" }));
+    dispatch(
+      userActions.registerUser({ email, name, password, level: "admin" }, navigate)
+    );
   };
 
   const handleChange = (event) => {
     event.preventDefault();
     const { id, value } = event.target;
-    setAdminFormData({ ...adminFormData, [id]: value});
-    
+    setAdminFormData({ ...adminFormData, [id]: value });
   };
 
-  useEffect(() => {
-    if (loading === true) {
-    navigate("/login");
-  }
-  }, [])
-  
   return (
     <>
       <Container className="admin-form mt-5 w-25">
@@ -87,7 +81,9 @@ const AdminRegisterPage = () => {
               required
             />
           </Form.Group>
-          <Form.Control.Feedback type="invalid">{passwordError}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            {passwordError}
+          </Form.Control.Feedback>
           <br />
           <Button variant="secondary" type="submit">
             관리자 회원가입 하기

@@ -3,16 +3,15 @@ import React from "react";
 // const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
 import "../styles/MainNavbar.style.css";
 import { useDispatch } from "react-redux";
-import { logout } from "../reducer/userReducer";
 import { Link } from "react-router-dom";
-import { cartLogout } from "../reducer/cartReducer";
+import { userActions } from "../actions/userAction";
 
 const MainNavbar = ({ user }) => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout());
-    dispatch(cartLogout())
+    dispatch(userActions.logout());
+    // dispatch(cartLogout());
   };
 
   return (
@@ -27,7 +26,7 @@ const MainNavbar = ({ user }) => {
       </div>
 
       <div className="nav-first-line">
-        <div className="nav-logo mb-4">
+        <div className="nav-logo">
           <a href="/">
             <img
               src="https://www.logoyogo.com/web/wp-content/uploads/edd/2021/02/logoyogo-1-307.jpg"

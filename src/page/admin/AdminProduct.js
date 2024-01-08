@@ -3,14 +3,12 @@ import { Container, Button } from "react-bootstrap";
 import SearchBox from "../../components/SearchBox";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getProductList,
-  setSelectedProduct,
-} from "../../reducer/productReducer";
 import { useSearchParams } from "react-router-dom";
 import NewItemModal from "./NewItemModal";
 import AdminProductTable from "./AdminProductTable";
 import ReactPaginate from 'react-paginate';
+import { productActions } from "../../actions/productAction";
+import * as types from "../../constants/product.constants";
 
 
 const AdminProduct = () => {
@@ -38,7 +36,8 @@ const AdminProduct = () => {
 
   useEffect(() => {
     //상품리스트 가져오기(url쿼리 맞춰서)
-    dispatch(getProductList({ ...searchQuery }));
+    dispatch(productActions.getProductList({...searchQuery}));
+    console.log('good', productList)
   }, [query]);
 
   useEffect(() => {
@@ -52,12 +51,12 @@ const AdminProduct = () => {
   }, [searchQuery]);
 
   const deleteItem = (id) => {
-    dispatch(deleteItem(id));
+    dispatch(productActions.deleteProduct(id));
   };
 
   const openEditForm = (product) => {
     setMode("edit");
-    dispatch(setSelectedProduct(product))
+    dispatch({type: types.SET_SELECTED_PRODUCT, payload: product})
     setShowDialog(true);
   };
 
@@ -86,8 +85,9 @@ const AdminProduct = () => {
           header={tableHeader}
           data={productList}
           deleteItem={deleteItem}
-          openEditFrom={openEditForm}
+          openEditForm={openEditForm}
         />
+
         {/* 페이지네이션 작성하기 */}
         <ReactPaginate
           nextLabel="next >"

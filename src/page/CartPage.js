@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import OrderResult from "../components/OrderResult";
 import CartProductCard from '../components/CartProductCard';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../actions/cartActions";
 
 const CartPage = () => {
+  const dispatch = useDispatch();
   const { cartList, totalPrice } = useSelector((state) => state.cart);
 
   useEffect(() => {
-
+    dispatch(cartActions.getCartList())
   }, []);
   
   return (

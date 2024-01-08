@@ -3,7 +3,8 @@ import { Modal, Form, Row, Col, Button } from "react-bootstrap";
 import CloudinaryUploadWidget from "../../utils/CloudinaryUploadWidget";
 import { useDispatch, useSelector } from "react-redux";
 import "../../styles/adminProduct.styles.css";
-import { createProduct, editProduct } from "../../reducer/productReducer";
+import { COLOR, STATUS, CATEGORY } from "../../constants/product.constants";
+import { productActions } from "../../actions/productAction";
 
 const InitialFormData = {
   sku: "",
@@ -17,13 +18,9 @@ const InitialFormData = {
 };
 
 const NewItemModal = ({ mode, showDialog, setShowDialog }) => {
-  const COLOR = ["BLACK", "GREY", "BROWN", "RED", "BLUE"];
-  const CATEGORY = ["여성용", "남성용", "선글라스"];
-  const STATUS = ["active", "disActive"];
-
   const dispatch = useDispatch();
 
-  const selectedProduct = useSelector((state) => state.product);
+  const selectedProduct = useSelector((state) => state.product.selectedProduct);
   const { error } = useSelector((state) => state.product);
   const [formData, setFormData] = useState(
     mode === "new" ? { InitialFormData } : selectedProduct
@@ -48,11 +45,11 @@ const NewItemModal = ({ mode, showDialog, setShowDialog }) => {
     }, {});
 
     if (mode === "new") {
-      dispatch(createProduct({ ...formData, stock: totalStock }));
+      dispatch(productActions.createProduct({ ...formData, stock: totalStock }));
       setShowDialog(false);
     } else {
       dispatch(
-        editProduct({ ...formData, stock: totalStock }, selectedProduct._id)
+        productActions.editProduct({ ...formData, stock: totalStock }, selectedProduct._id)
       );
       setShowDialog(false);
     }
@@ -107,19 +104,19 @@ const NewItemModal = ({ mode, showDialog, setShowDialog }) => {
 
   useEffect(() => {
     if (showDialog) {
-      if (mode === "edit") {
+      if (mode === "edit" ) {
         setFormData(selectedProduct);
         const stockArray = Object.keys(selectedProduct.stock).map((color) => [
           color,
           selectedProduct.stock[color],
         ]);
-        setStock(stockArray);
+        setStock(stockArray)
       } else {
-        setFormData({ ...InitialFormData });
+        setFormData({...InitialFormData});
         setStock([]);
       }
     }
-  }, [showDialog]);
+  }, [showDialog, selectedProduct]);
 
   return (
     <Modal show={showDialog} onHide={handleClose}>
@@ -175,6 +172,7 @@ const NewItemModal = ({ mode, showDialog, setShowDialog }) => {
               재고 추가하기
             </Button>
             <div className="mt-2">
+
               {stock.map((item, index) => (
                 <Row key={index}>
                   <Col sm={4}>

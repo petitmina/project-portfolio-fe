@@ -4,18 +4,18 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CountButton from "./CountButton";
 import { useDispatch } from "react-redux";
-import { deleteCartItem, updateQty } from "../reducer/cartReducer";
 import CurrencyFormat from "react-currency-format";
+import { cartActions } from "../actions/cartActions";
 
 const CartProductCard = ({ item }) => {
   const dispatch = useDispatch();
 
-  const handleQtyChange = (id, value) => {
-    dispatch(updateQty(id, value));
+  const handleQtyChange = () => {
+    dispatch(cartActions.updateQty());
   };
 
-  const deleteCart = (id) => {
-    dispatch(deleteCartItem(id));
+  const deleteCart = () => {
+    dispatch(cartActions.deleteCartItem(item._id));
   };
 
   return (
@@ -57,11 +57,9 @@ const CartProductCard = ({ item }) => {
           </div>
           <div>
             <CountButton
-              initialQty={item.productId.qty}
-              onQtyChange={(newQty) => handleQtyChange(newQty, item.productId.id)}
             />
           </div>
-          <div>수량: {item.productId.item}</div>
+          <div>수량: {item.qty}</div>
         </Col>
       </Row>
     </div>

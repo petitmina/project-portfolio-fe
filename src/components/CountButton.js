@@ -7,7 +7,7 @@ const CountButton = ({onQtyChange}) => {
     const increaseQty = () => {
         const newQty = count + 1;
         setCount(newQty);
-        onQtyChange(newQty);
+        onQtyChange(newQty)
       }
     
       const decreaseQty = () =>{
@@ -29,6 +29,7 @@ const CountButton = ({onQtyChange}) => {
           border: "none",
           textAlign: "center",
         }}
+        type="number"
         value={count}
         readOnly
       />

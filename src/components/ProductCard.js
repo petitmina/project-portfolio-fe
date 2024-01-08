@@ -17,7 +17,7 @@ const ProductCard = ({item}) => {
         <Card.Title style={{ textAlign:'center'}}>{item?.name}</Card.Title>
         <div className='d-flex justify-content-center'> 
             {/* 상품 디테일 페이지 만들면 navigate 수정하기  */}
-            <Button variant="secondary"><Link to={showProduct}  style={{color: 'black', textDecoration: 'none'}}>자세히보기</Link></Button>
+            <Button variant="secondary" onClick={() =>showProduct(item._id)}>자세히보기</Button>
         </div>
       </Card.Body>
     </Card>
