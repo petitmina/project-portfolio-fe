@@ -1,6 +1,7 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Badge, Table } from "react-bootstrap";
 import CurrencyFormat from "react-currency-format";
+import { badgeBg } from "../constants/order.constants";
 
 const OrderTable = ({ header, data, openEditForm }) => {
   return (
@@ -39,6 +40,9 @@ const OrderTable = ({ header, data, openEditForm }) => {
                     thousandSeparator={true}
                     prefix={"₩"}
                   />
+                </th>
+                <th>
+                  <Badge bg={badgeBg[item.status]}>{item.status}</Badge>
                 </th>
               </tr>
             ))

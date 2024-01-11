@@ -1,23 +1,24 @@
 import React from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import CurrencyFormat from "react-currency-format";
 
 const OrderResult = ({ cartList, totalPrice }) => {
   const location = useLocation();
-  const navigate = useDispatch();
+  const navigate = useNavigate();
+  console.log(cartList, 'check')
 
-  // 하드코드 변경하기
   return (
-    <div className="ml-2 text-center">
-      <h3>주문 내역</h3>
-      <ul style={{ listStyle: "none" }}>
+    <div className="receipt-container">
+      <h3 className="receipt-title">주문 내역</h3>
+      <ul className="receipt-list">
         {cartList.length > 0 &&
-          cartList.map((item) => {
+          cartList.map((item) => (
             <li key={item._id}>
               <div className="display-flex space-between">
                 <div>{item.productId.name}</div>
+
                 <div>
                   {
                     <CurrencyFormat
@@ -29,31 +30,35 @@ const OrderResult = ({ cartList, totalPrice }) => {
                   }
                 </div>
               </div>
-            </li>;
-          })}
+            </li>
+          ))}
       </ul>
-      <div>
-        <div>Total:</div>
+      <div className="display-flex space-between receipt-title">
+        <div>
+          <strong>Total:</strong>
+        </div>
         <div>
           <strong>
-            <CurrencyFormat
-              value={totalPrice}
-              displayType="text"
-              thousandSeparator={true}
-              prefix={"₩"}
-            />
+            {
+              <CurrencyFormat
+                value={totalPrice}
+                displayType="text"
+                thousandSeparator={true}
+                prefix={"₩"}
+              />
+            }
           </strong>
         </div>
-        {location.pathname.includes("/cart") && (
-          <Button
-            variant="dark"
-            className="payment-button"
-              onClick={() => navigate("/payment")}
-          >
-            결제 계속하기
-          </Button>
-        )}
       </div>
+      {location.pathname.includes("/cart") && cartList.length > 0 && (
+        <Button
+          variant="dark"
+          className="payment-button"
+          onClick={() => navigate("/payment")}
+        >
+          결제 계속하기
+        </Button>
+      )}
     </div>
   );
 };

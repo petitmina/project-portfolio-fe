@@ -1,8 +1,7 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CountButton from "./CountButton";
 import { useDispatch } from "react-redux";
 import CurrencyFormat from "react-currency-format";
 import { cartActions } from "../actions/cartActions";
@@ -10,12 +9,14 @@ import { cartActions } from "../actions/cartActions";
 const CartProductCard = ({ item }) => {
   const dispatch = useDispatch();
 
-  const handleQtyChange = () => {
-    dispatch(cartActions.updateQty());
+  const handleQtyChange = (type) => {
+    const newQty = type === 'plus' ? item.qty + 1 : item.qty - 1;
+    dispatch(cartActions.updateQty(item._id, newQty))
   };
 
-  const deleteCart = () => {
-    dispatch(cartActions.deleteCartItem(item._id));
+
+  const deleteCart = (id) => {
+    dispatch(cartActions.deleteCartItem(id));
   };
 
   return (
@@ -56,9 +57,24 @@ const CartProductCard = ({ item }) => {
             />
           </div>
           <div>
-            <CountButton
-            />
-          </div>
+                <Button variant="secondary"  onClick={() => handleQtyChange('minus')}>
+                  -
+                </Button>
+                <input
+                  style={{
+                    width: "30px",
+                    margin: "3px",
+                    border: "none",
+                    textAlign: "center",
+                  }}
+                  type="number"
+                  value={item.qty}
+                  readOnly
+                />
+                <Button variant="secondary" onClick={() => handleQtyChange('plus')} >
+                  +
+                </Button>
+              </div>
           <div>수량: {item.qty}</div>
         </Col>
       </Row>

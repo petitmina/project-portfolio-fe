@@ -13,6 +13,7 @@ const CartPage = () => {
     dispatch(cartActions.getCartList())
   }, []);
   
+  console.log(cartList, 'info')
   return (
     <Container style={{ marginTop: "10%" }}>
       <Row>

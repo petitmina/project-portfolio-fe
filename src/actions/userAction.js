@@ -17,7 +17,6 @@ const loginWithEmail = ({email, password}) => async(dispatch) => {
     try{
         dispatch({type: types.LOGIN_REQUEST});
         const response = await api.post('/auth/login', {email, password});
-        console.log('aaa', response)
         if(response.status !== 200) throw new Error(response.error);
         sessionStorage.setItem('token', response.data.token);
         dispatch({type: types.LOGIN_SUCCESS, payload: response.data})
@@ -30,7 +29,6 @@ const loginWithToken = () => async(dispatch) => {
     try{
         dispatch({type: types.LOGIN_WITH_TOKEN_REQUEST});
         const response = await api.get('/user/me');
-        console.log('sss', response)
         if(response.status !== 200) throw new Error(response.error);
         dispatch({type: types.LOGIN_WITH_TOKEN_SUCCESS, payload: response.data })
     } catch(error) {

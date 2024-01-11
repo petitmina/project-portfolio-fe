@@ -11,7 +11,6 @@ const MainNavbar = ({ user }) => {
 
   const handleLogout = () => {
     dispatch(userActions.logout());
-    // dispatch(cartLogout());
   };
 
   return (
@@ -50,7 +49,7 @@ const MainNavbar = ({ user }) => {
           <a href="/cart" className="text-item">
             장바구니
           </a>
-          <a href="/" className="text-item">
+          <a href="/account/purchase" className="text-item">
             My Page
           </a>
         </div>

@@ -27,7 +27,7 @@ const getCartList = () => async(dispatch) => {
 const deleteCartItem = (id) => async(dispatch) => {
     try{
         dispatch({type: types.DELETE_CART_ITEM_REQUEST});
-        const response = await api.put(`/cart/${id}`);
+        const response = await api.delete(`/cart/${id}`);
         if(response.status !== 200) throw new Error(response.data);
         dispatch({type: types.DELETE_CART_ITEM_SUCCESS, payload: response.data.cartItemQty});
         dispatch(getCartList());

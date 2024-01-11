@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row, Form, Dropdown } from "react-bootstrap";
+import { Col, Container, Row, Dropdown } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import "../styles/ProductDetail.style.css";
-import CountButton from "../components/CountButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
@@ -25,10 +24,15 @@ const ProductDetail = () => {
     }
     if (!user) navigate("/login");
     dispatch(cartActions.addToCart({ id, color, qty }));
+    navigate("/cart");
   };
 
-  const handleQtyChange = (newQty) => {
-    setQty(newQty)
+  const handleQtyChange = (type) => {
+    if(type === 'plus') {
+      setQty(qty + 1)
+    } else {
+      setQty(qty -1)
+    }
   };
 
   const selectColor = (value) => {
@@ -93,7 +97,27 @@ const ProductDetail = () => {
                     )}
                 </Dropdown.Menu>
               </Dropdown>
-              <CountButton onQtyChange={handleQtyChange} />
+              {/* <CountButton count={qty} onDecrease={decreaseQty} onIncrease={increaseQty} /> */}
+
+              <div>
+                <Button variant="secondary" onClick={() => handleQtyChange('minus')} >
+                  -
+                </Button>
+                <input
+                  style={{
+                    width: "30px",
+                    margin: "3px",
+                    border: "none",
+                    textAlign: "center",
+                  }}
+                  type="number"
+                  value={qty}
+                  readOnly
+                />
+                <Button variant="secondary" onClick={() => handleQtyChange('plus')} >
+                  +
+                </Button>
+              </div>
 
               <div>{colorError && "색상과 수량을 선택해주세요"}</div>
 

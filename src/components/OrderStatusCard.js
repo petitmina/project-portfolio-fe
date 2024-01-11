@@ -1,29 +1,40 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Badge } from "react-bootstrap";
+import { badgeBg } from "../constants/order.constants";
+import CurrencyFormat from "react-currency-format";
 
-const OrderStatusCard = () => {
+const OrderStatusCard = ({ orderItem }) => {
   return (
     <div>
       <Row>
         <Col xs={2}>
           <img
-            src="https://hotsunglass.co.kr/web/product/small/202212/d1a2a1ffff24c2846d83cad3476a2f92.jpg"
-            alt="기본안경"
+            src={orderItem.items[0]?.productId?.image}
+            alt={orderItem.items[0]?.productId?.image}
             height={100}
           />
         </Col>
         <Col xs={8}>
           <div>
-            <strong>주문번호: {}</strong>
+            <strong>주문번호: {orderItem.orderNum}</strong>
           </div>
-          <div>2023-12-31</div>
-          <div>하금테</div>
-          <div>₩ 50,000</div>
-        </Col>
-        <Col md={2}>
+          <div>{orderItem.createdAt.slice(1, 10)}</div>
+          <div>{orderItem.items[0].productId.name}</div>
           <div>
-            주문상태
+            ₩{" "}
+            {orderItem.items.length > 1 && `외 ${orderItem.items.length - 1}개`}
           </div>
+        </Col>
+        <Col md={2} className="vertical-middle">
+          <div className="text-align-center text-12">
+            <CurrencyFormat
+              value={orderItem.totalPrice}
+              displayType="text"
+              thousandSeparator={true}
+              prefix={"₩"}
+            />
+          </div>
+          <Badge bg={badgeBg[orderItem.status]}>{orderItem.status}</Badge>
         </Col>
       </Row>
     </div>
