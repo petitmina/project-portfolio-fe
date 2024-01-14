@@ -12,6 +12,7 @@ import AdminProduct from "../page/admin/AdminProduct";
 import PrivateRouter from "./PrivateRouter";
 import MyPage from "../page/MyPage";
 import OrderCompletePage from "../page/OrderCompletePage";
+import AdminOrderPage from "../page/admin/AdminOrderPage";
 
 
 const AppRouter = () => {
@@ -31,6 +32,7 @@ const AppRouter = () => {
       <Route element={<PrivateRouter permissionLevel='admin' />} >
         <Route path="/admin/register" element={<AdminRegisterPage />} />
         <Route path="/admin/product" element={<AdminProduct />} />
+        <Route path="/admin/order" element={<AdminOrderPage  />} />
       </Route>
     </Routes>
   );

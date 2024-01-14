@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Table, Form, Col, Button } from "react-bootstrap";
-import { selectedOrder } from "../../reducer/orderReducer";
 import CurrencyFormat from "react-currency-format";
+import { ORDER_STATUS } from "../../constants/order.constants";
+import { useDispatch, useSelector } from "react-redux";
+import { orderActions } from "../../actions/orderAction";
 
 const OrderDetailDialog = ({ open, handleClose }) => {
-  const ORDER_STATUS = ["preparing", "shipping", "delivered", "refund"];
+    const selectedOrder = useSelector((state)=> state.order);
+    const [orderStatus, setOrderStatus] = useState(selectedOrder.status);
+    const dispatch = useDispatch();
+
+    const handleStatusChange = (event) => {
+      dispatch(orderActions.updateOrder(selectedOrder._id, orderStatus));
+      handleClose();
+    };
+
+    if(!selectedOrder) {
+      return <></>
+    };
 
   return (
-    <Modal>
+    <Modal show={open} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Order Detail</Modal.Title>
       </Modal.Header>

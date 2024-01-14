@@ -1,13 +1,11 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router";
 import Button from "react-bootstrap/Button";
-import { useDispatch } from "react-redux";
 import CurrencyFormat from "react-currency-format";
 
 const OrderResult = ({ cartList, totalPrice }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(cartList, 'check')
 
   return (
     <div className="receipt-container">
@@ -18,7 +16,6 @@ const OrderResult = ({ cartList, totalPrice }) => {
             <li key={item._id}>
               <div className="display-flex space-between">
                 <div>{item.productId.name}</div>
-
                 <div>
                   {
                     <CurrencyFormat
@@ -50,7 +47,8 @@ const OrderResult = ({ cartList, totalPrice }) => {
           </strong>
         </div>
       </div>
-      {location.pathname.includes("/cart") && cartList.length > 0 && (
+
+      {cartList.length > 0 && location.pathname.includes("/cart") && (
         <Button
           variant="dark"
           className="payment-button"

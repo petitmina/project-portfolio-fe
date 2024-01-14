@@ -1,4 +1,5 @@
 import './App.css';
+import './styles/common.style.css'
 import AppLayout from './Layout/AppLayout';
 import AppRouter from './routes/AppRouter';
 

@@ -3,10 +3,12 @@ import { Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import OrderStatusCard from '../components/OrderStatusCard'
 import { orderActions } from '../actions/orderAction'
+import '../styles/order.style.css'
 
 const MyPage = () => {
     const dispatch = useDispatch();
     const {orderList} = useSelector((state) => state.order)
+    console.log(orderList, 'check')
 
     useEffect(() => {
         dispatch(orderActions.getOrder());
@@ -20,15 +22,14 @@ const MyPage = () => {
         )
     }
   return (
-    <Container>
-        {orderList.map((item) => (
-            <OrderStatusCard 
-                orderItem={item}
-                className='status-card-continer'
-                key={item._id}
-            />
-
-        ))}
+    <Container className="status-card-container mt-5">
+      {orderList.map((item) => (
+        <OrderStatusCard
+          orderItem={item}
+          className="status-card-container"
+          key={item._id}
+        />
+      ))}
     </Container>
   )
 }

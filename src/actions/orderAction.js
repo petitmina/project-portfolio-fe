@@ -9,6 +9,7 @@ const createOrder = (payload, navigate) => async(dispatch) => {
         if(response.status !== 200) throw new Error(response.error);
         dispatch({type: types.CREATE_ORDER_SUCCESS, payload: response.data.orderNum});
         dispatch(cartActions.getCartQty());
+        navigate('/payment/success')
     }catch(error) {
         dispatch({type: types.CREATE_ORDER_FAIL, payload: error.error});
     }
@@ -34,7 +35,7 @@ const getOrderList = (query) =>  async(dispatch) => {
         if(response.status !== 200) throw new Error(response.error);
         dispatch({ type: types.GET_ORDER_LIST_SUCCESS, payload: response.data});
     }catch(error) {
-        dispatch({type: types.GET_ORDER_LIST_FAIL, payload: error.error});
+        dispatch({type: types.GET_ORDER_LIST_FAIL, error: error});
     }
 };
 

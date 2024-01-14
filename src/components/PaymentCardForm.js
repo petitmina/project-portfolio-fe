@@ -1,6 +1,7 @@
 import React from 'react'
 import { Col, Row,Form } from 'react-bootstrap'
 import Cards from 'react-credit-cards';
+import "react-credit-cards/es/styles-compiled.css";
 
 const PaymentCardForm = ({ 
     handleInputFocus,

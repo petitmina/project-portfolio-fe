@@ -37,7 +37,6 @@ const AdminProduct = () => {
   useEffect(() => {
     //상품리스트 가져오기(url쿼리 맞춰서)
     dispatch(productActions.getProductList({...searchQuery}));
-    console.log('good', productList)
   }, [query]);
 
   useEffect(() => {

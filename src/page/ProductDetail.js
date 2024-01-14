@@ -28,10 +28,10 @@ const ProductDetail = () => {
   };
 
   const handleQtyChange = (type) => {
-    if(type === 'plus') {
-      setQty(qty + 1)
+    if (type === "plus") {
+      setQty(qty + 1);
     } else {
-      setQty(qty -1)
+      setQty(qty - 1);
     }
   };
 
@@ -47,88 +47,95 @@ const ProductDetail = () => {
   return (
     <Container className="product-detail-container">
       {selectedProduct ? (
-        <Row className="justify-content-center">
-          <Col sm={6} className="text-center">
+        <Row>
+          <Col sm={6}>
             <img src={selectedProduct.image} alt="image" className="w-100" />
           </Col>
-          <Col sm={6} className=" mb-5">
-            <div className="mb-1">{selectedProduct.name}</div>
-            <div className="mb-1">
-              {
-                <CurrencyFormat
-                  value={selectedProduct.price}
-                  displayType="text"
-                  thousandSeparator={true}
-                  prefix={"₩"}
-                />
-              }
-            </div>
-            <div>{selectedProduct.description}</div>
+          <Col sm={6}>
+            <div className="detail-text">
+              <div className="mb-1">{selectedProduct.name}</div>
+              <div className="mb-1">
+                {
+                  <CurrencyFormat
+                    value={selectedProduct.price}
+                    displayType="text"
+                    thousandSeparator={true}
+                    prefix={"₩"}
+                  />
+                }
+              </div>
+              <div>{selectedProduct.description}</div>
 
-            <div className="mt-3">
-              <Dropdown
-                className="size-drop-down"
-                variant={colorError ? "outline-danger" : "outline-dark"}
-                id="dropdown-basic"
-                align="start"
-                onSelect={(value) => selectColor(value)}
-              >
-                <Dropdown.Toggle
-                  className="color-drop-down"
+              <div className="mt-3">
+                <Dropdown
+                  className="size-drop-down"
                   variant={colorError ? "outline-danger" : "outline-dark"}
                   id="dropdown-basic"
                   align="start"
+                  onSelect={(value) => selectColor(value)}
                 >
-                  {color === "" ? "Color 선택" : color.toUpperCase()}
-                </Dropdown.Toggle>
+                  <Dropdown.Toggle
+                    className="color-drop-down"
+                    variant={colorError ? "outline-danger" : "outline-dark"}
+                    id="dropdown-basic"
+                    align="start"
+                  >
+                    {color === "" ? "Color 선택" : color.toUpperCase()}
+                  </Dropdown.Toggle>
 
-                <Dropdown.Menu className="color-drop-down">
-                  {Object.keys(selectedProduct.stock).length > 0 &&
-                    Object.keys(selectedProduct.stock).map((item) =>
-                      selectedProduct.stock[item] > 0 ? (
-                        <Dropdown.Item eventKey={item}>
-                          {item.toUpperCase()}
-                        </Dropdown.Item>
-                      ) : (
-                        <Dropdown.Item eventKey={item} disabled={true}>
-                          {item.toUpperCase()}
-                        </Dropdown.Item>
-                      )
-                    )}
-                </Dropdown.Menu>
-              </Dropdown>
-              {/* <CountButton count={qty} onDecrease={decreaseQty} onIncrease={increaseQty} /> */}
+                  <Dropdown.Menu className="color-drop-down">
+                    {Object.keys(selectedProduct.stock).length > 0 &&
+                      Object.keys(selectedProduct.stock).map((item) =>
+                        selectedProduct.stock[item] > 0 ? (
+                          <Dropdown.Item eventKey={item}>
+                            {item.toUpperCase()}
+                          </Dropdown.Item>
+                        ) : (
+                          <Dropdown.Item eventKey={item} disabled={true}>
+                            {item.toUpperCase()}
+                          </Dropdown.Item>
+                        )
+                      )}
+                  </Dropdown.Menu>
+                </Dropdown>
 
-              <div>
-                <Button variant="secondary" onClick={() => handleQtyChange('minus')} >
-                  -
-                </Button>
-                <input
-                  style={{
-                    width: "30px",
-                    margin: "3px",
-                    border: "none",
-                    textAlign: "center",
-                  }}
-                  type="number"
-                  value={qty}
-                  readOnly
-                />
-                <Button variant="secondary" onClick={() => handleQtyChange('plus')} >
-                  +
+                <div className="mt-3">
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleQtyChange("minus")}
+                  >
+                    -
+                  </Button>
+                  <input
+                    style={{
+                      width: "30px",
+                      margin: "3px",
+                      border: "none",
+                      textAlign: "center",
+                    }}
+                    type="number"
+                    value={qty}
+                    readOnly
+                  />
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleQtyChange("plus")}
+                  >
+                    +
+                  </Button>
+                </div>
+
+                <div>{colorError && "색상과 수량을 선택해주세요"}</div>
+
+                {/* 버튼을 누르면 제품과 qty보내기 */}
+                <Button
+                  variant="secondary"
+                  className="mt-3"
+                  onClick={addItemToCart}
+                >
+                  장바구니에 추가
                 </Button>
               </div>
-
-              <div>{colorError && "색상과 수량을 선택해주세요"}</div>
-
-              {/* 버튼을 누르면 제품과 qty보내기 */}
-              <Button
-                variant="secondary"
-                className="add-button mt-3"
-                onClick={addItemToCart}
-              >
-                장바구니에 추가
-              </Button>
             </div>
           </Col>
         </Row>

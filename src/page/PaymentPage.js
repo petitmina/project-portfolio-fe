@@ -9,6 +9,7 @@ import PaymentCardForm from "../components/PaymentCardForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { orderActions } from "../actions/orderAction";
+import '../styles/payment.style.css';
 
 function PaymentPage() {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ function PaymentPage() {
             productId: item.productId._id,
             price: item.productId.price,
             qty: item.qty,
-            size: item.size,
+            color: item.color,
           }
         }),
     }
@@ -156,13 +157,13 @@ function PaymentPage() {
                   />
             </div>
 
-            <Button variant="secondary" type="submit">
+            <Button variant="secondary" type="submit" className="payment-button mt-2">
               결제하기
             </Button>
           </Form>
         </Col>
-        <Col lg={5} className="m-auto text-center">
-          <OrderResult />
+        <Col lg={5} className="mb-3 text-center">
+          <OrderResult cartList={cartList} totalPrice={totalPrice}/>
         </Col>
       </Row>
     </Container>

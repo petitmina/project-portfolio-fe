@@ -17,19 +17,19 @@ const AllProduct = () => {
 
   return (
     <Container>
-      {productList.length > 0 ? (
-        productList.map((item) => (
-          <Row key={item._id}>
-            <Col xs={12} sm={6} md={4} >
+      <Row className="mt-5">
+        {productList.length > 0 ? (
+          productList.map((item) => (
+            <Col sm={12} md={4} key={item._id}>
               <ProductCard item={item} />
             </Col>
-          </Row>
-        ))
-      ) : (
-        <div className="mt-5 display-center justify-content-center">
-          <h2>등록된 상품이 없습니다</h2>
-        </div>
-      )}
+          ))
+        ) : (
+          <div className="mt-5 display-center justify-content-center">
+            <h2>등록된 상품이 없습니다</h2>
+          </div>
+        )}
+      </Row>
     </Container>
   );
 };

@@ -1,3 +1,4 @@
+import * as types from '../../constants/order.constants';
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import SearchBox from "../../components/SearchBox";
@@ -5,9 +6,9 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderList, setSelectedOrder } from "../../reducer/orderReducer";
 import OrderDetailDialog from "./OrderDetailDialog";
 import OrderTable from "../../components/OrderTable";
+import { orderActions } from "../../actions/orderAction";
 
 const AdminOrderPage = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const AdminOrderPage = () => {
   ];
 
   useEffect(() => {
-    dispatch(getOrderList({ ...searchQuery }));
+    dispatch(orderActions.getOrderList({ ...searchQuery }));
   }, [query]);
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const AdminOrderPage = () => {
 
   const openEditForm = (order) => {
     setOpen(true);
-    dispatch(setSelectedOrder(order));
+    dispatch({type: types.SET_SELECTED_ORDER, payload: order});
   };
 
   const handlePageClick = ({ selected }) => {

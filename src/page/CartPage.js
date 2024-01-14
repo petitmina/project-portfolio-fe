@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import OrderResult from "../components/OrderResult";
-import CartProductCard from '../components/CartProductCard';
+import CartProductCard from "../components/CartProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../actions/cartActions";
+import "../styles/cart.style.css";
 
 const CartPage = () => {
   const dispatch = useDispatch();
   const { cartList, totalPrice } = useSelector((state) => state.cart);
 
   useEffect(() => {
-    dispatch(cartActions.getCartList())
+    dispatch(cartActions.getCartList());
   }, []);
-  
-  console.log(cartList, 'info')
+
   return (
     <Container style={{ marginTop: "10%" }}>
       <Row>
@@ -29,15 +29,12 @@ const CartPage = () => {
             </div>
           )}
         </Col>
-        <Col xs={12} md={7} style={{marginTop: '10px', textAlign: 'center', justifyContent:'center'}}>
-            </Col>
-            <Col xs={12} md={5}>
-                <OrderResult cartList={cartList} totalPrice={totalPrice}/>
-            </Col>
-            
+        <Col xs={12} md={5}>
+          <OrderResult cartList={cartList} totalPrice={totalPrice} />
+        </Col>
       </Row>
     </Container>
   );
 };
-
+// style={{marginTop: '10px', textAlign: 'center', justifyContent:'center'}}
 export default CartPage;

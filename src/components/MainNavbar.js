@@ -12,19 +12,19 @@ const MainNavbar = ({ user }) => {
   const handleLogout = () => {
     dispatch(userActions.logout());
   };
-
+//className="navbar-container"
   return (
-    <div className="navbar-container">
+    <div className="nav-container"> 
       <div className="check-admin">
         <Link
           to="/admin"
-          className="d-flex mt-1 mr-1 justify-content-end text-decoration-none variant-info"
+          className="d-flex mr-1 justify-content-end"
         >
           Admin page
         </Link>
       </div>
 
-      <div className="nav-first-line">
+      <div className="nav-header">
         <div className="nav-logo">
           <a href="/">
             <img

@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import '../styles/payment.style.css'
 
 const OrderCompletePage = () => {
   const { orderNum } = useSelector((state) => state.order);

@@ -10,25 +10,24 @@ const CartProductCard = ({ item }) => {
   const dispatch = useDispatch();
 
   const handleQtyChange = (type) => {
-    const newQty = type === 'plus' ? item.qty + 1 : item.qty - 1;
-    dispatch(cartActions.updateQty(item._id, newQty))
+    const newQty = type === "plus" ? item.qty + 1 : item.qty - 1;
+    dispatch(cartActions.updateQty(item._id, newQty));
   };
-
 
   const deleteCart = (id) => {
     dispatch(cartActions.deleteCartItem(id));
   };
 
   return (
-    <div>
+    <div className="product-card-cart">
       <Row>
-        <Col md={2} xs={12}>
-          <img src={item.productId.image} alt="기본안경" width={110} />
-        </Col>
-        <Col md={10} xs={12}>
+          <Col>
+            <img src={item.productId.image} alt="기본안경" width={112} />
+          </Col>
+        <Col >
           <div className="d-flex space-between">
             <h3>{item.productId.name}</h3>
-            <button>
+            <button className="trash-button">
               <FontAwesomeIcon
                 icon={faTrash}
                 width={24}
@@ -36,7 +35,6 @@ const CartProductCard = ({ item }) => {
               />
             </button>
           </div>
-
           <div>
             <strong>
               <CurrencyFormat
@@ -56,25 +54,28 @@ const CartProductCard = ({ item }) => {
               prefix={"₩"}
             />
           </div>
-          <div>
-                <Button variant="secondary"  onClick={() => handleQtyChange('minus')}>
-                  -
-                </Button>
-                <input
-                  style={{
-                    width: "30px",
-                    margin: "3px",
-                    border: "none",
-                    textAlign: "center",
-                  }}
-                  type="number"
-                  value={item.qty}
-                  readOnly
-                />
-                <Button variant="secondary" onClick={() => handleQtyChange('plus')} >
-                  +
-                </Button>
-              </div>
+          <div className="qty-select">
+            <Button
+              variant="secondary"
+              onClick={() => handleQtyChange("minus")}
+            >
+              -
+            </Button>
+            <input
+              style={{
+                width: "30px",
+                margin: "3px",
+                border: "none",
+                textAlign: "center",
+              }}
+              type="number"
+              value={item.qty}
+              readOnly
+            />
+            <Button variant="secondary" onClick={() => handleQtyChange("plus")}>
+              +
+            </Button>
+          </div>
           <div>수량: {item.qty}</div>
         </Col>
       </Row>
