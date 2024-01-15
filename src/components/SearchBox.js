@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useSearchParams } from "react-router-dom";
 
-const SearchBox = ({ searchQuery, setSearchQuery, field }) => {
+const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
   const [query] = useSearchParams();
   const [keyword, setKeyword] = useState(query.get(field) || "");
 
@@ -17,7 +17,7 @@ const SearchBox = ({ searchQuery, setSearchQuery, field }) => {
       <FontAwesomeIcon icon={faSearch} />
       <input
         type="text"
-        placeholder='제품명을 입력하세요'
+        placeholder={placeholder}
         onKeyDown={onCheckEnter}
         onChange={(event) => setKeyword(event.target.value)}
         value={keyword}

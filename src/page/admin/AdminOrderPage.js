@@ -14,10 +14,10 @@ const AdminOrderPage = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useSearchParams();
   const dispatch = useDispatch();
-  const orderList = useSelector((state) => state.order);
+  const orderList = useSelector((state) => state.order.orderList);
   const [searchQuery, setSearchQuery] = useState({
     page: query.get("page") || 1,
-    ordernum: query.get("ordernum"),
+    orderNum: query.get("ordernum") || '',
   });
   const [open, setOpen] = useState(false);
   const totalPageNum = useSelector((state) => state.order.totalPageNum);

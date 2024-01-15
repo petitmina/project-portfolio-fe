@@ -6,14 +6,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { orderActions } from "../../actions/orderAction";
 
 const OrderDetailDialog = ({ open, handleClose }) => {
-    const selectedOrder = useSelector((state)=> state.order);
+    const selectedOrder = useSelector((state)=> state.order.selectedOrder);
     const [orderStatus, setOrderStatus] = useState(selectedOrder.status);
     const dispatch = useDispatch();
 
     const handleStatusChange = (event) => {
+      setOrderStatus(event.target.value);
+    };
+
+    const submitStatus = () => {
       dispatch(orderActions.updateOrder(selectedOrder._id, orderStatus));
       handleClose();
-    };
+    }
 
     if(!selectedOrder) {
       return <></>
@@ -31,8 +35,14 @@ const OrderDetailDialog = ({ open, handleClose }) => {
         <p>
           주소: {selectedOrder.shipTo.address + " " + selectedOrder.shipTo.city}
         </p>
+        <p>
+          연락처:
+          {`${
+            selectedOrder.contact.firstName + selectedOrder.contact.lastName
+          } ${selectedOrder.contact.contact}`}
+        </p>
         <p>주문내역</p>
-        <div>
+        <div className="overflow-x">
           <Table>
             <thead>
               <tr>
@@ -82,10 +92,10 @@ const OrderDetailDialog = ({ open, handleClose }) => {
             </tbody>
           </Table>
         </div>
-        <Form>
+        <Form onSubmit={submitStatus}>
           <Form.Group as={Col} controlId="status">
             <Form.Label>Status</Form.Label>
-            <Form.Select>
+            <Form.Select value={orderStatus} onChange={handleStatusChange}>
               {ORDER_STATUS.map((item, idx) => (
                 <option key={idx} value={item.toLowerCase()}>
                   {item}
@@ -101,7 +111,7 @@ const OrderDetailDialog = ({ open, handleClose }) => {
             >
               닫기
             </Button>
-            <Button>저장</Button>
+            <Button type="submit">저장</Button>
           </div>
         </Form>
       </Modal.Body>

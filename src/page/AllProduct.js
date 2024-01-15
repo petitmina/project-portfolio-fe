@@ -18,6 +18,8 @@ const AllProduct = () => {
   return (
     <Container>
       <Row className="mt-5">
+        {/* 최신순, 가격낮은순, 가격높은순 구현하기 */}
+        <div className="ml-5">최신순, 가격낮은순, 가격높은순</div>
         {productList.length > 0 ? (
           productList.map((item) => (
             <Col sm={12} md={4} key={item._id}>
