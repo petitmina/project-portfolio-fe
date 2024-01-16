@@ -13,6 +13,9 @@ import PrivateRouter from "./PrivateRouter";
 import MyPage from "../page/MyPage";
 import OrderCompletePage from "../page/OrderCompletePage";
 import AdminOrderPage from "../page/admin/AdminOrderPage";
+import WomenProductPage from "../page/category/WomenProductPage";
+import MenProductPage from "../page/category/MenCategoryPage";
+import SunglassProductPage from "../page/category/sunglassProductPage";
 
 
 const AppRouter = () => {
@@ -23,6 +26,9 @@ const AppRouter = () => {
       <Route path="/" element={<AllProduct />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/product/:id" element={<ProductDetail />} />
+      <Route path="/product/women" element={<WomenProductPage />} />
+      <Route path="/product/men" element={<MenProductPage />} />
+      <Route path="/product/sunglasses" element={<SunglassProductPage />} />
       <Route element={<PrivateRouter permissionLevel='customer' />} >
         <Route path="/cart" element={<CartPage />} />
         <Route path="/payment" element={<PaymentPage />} />

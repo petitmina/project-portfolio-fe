@@ -25,6 +25,20 @@ const getProductList = (query) => async (dispatch) => {
     }
   };
 
+// 수정필요
+  const getCategoryProductList = (query) => async (dispatch) => {
+    try{
+      dispatch({type: types.PRODUCT_CATEGORY_GET_REQUEST});
+      const response = await api.get('/product/category', {
+        params: {...query } 
+      });
+      if(response.status !== 200) throw new Error(response.error);
+      dispatch({ type: types.PRODUCT_CATEGORY_GET_SUCCESS, payload: response.data});
+    } catch(error){
+      dispatch({ type: types.PRODUCT_CATEGORY_GET_FAIL, payload: error.error});
+    }
+  };
+
 const getProductDetail = (id) => async(dispatch) => {
     try{
         dispatch({type: types.GET_PRODUCT_DETAIL_REQUEST});
@@ -66,4 +80,5 @@ export const productActions ={
     editProduct,
     deleteProduct,
     getProductDetail,
+    getCategoryProductList,
 }

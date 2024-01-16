@@ -56,13 +56,13 @@ const MainNavbar = ({ user }) => {
       </div>
 
       <div className="nav-second-line">
-        <a href="/" className="text-item1">
+        <a href="/product/women" className="text-item1">
           여성용
         </a>
-        <a href="/" className="text-item1">
+        <a href="/product/men" className="text-item1">
           남성용
         </a>
-        <a href="/" className="text-item1">
+        <a href="/product/sunglasses" className="text-item1">
           선글라스
         </a>
       </div>
