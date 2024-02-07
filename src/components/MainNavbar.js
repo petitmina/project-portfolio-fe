@@ -12,7 +12,7 @@ const MainNavbar = ({ user }) => {
   const handleLogout = () => {
     dispatch(userActions.logout());
   };
-//className="navbar-container"
+
   return (
     <div className="nav-container"> 
       <div className="check-admin">

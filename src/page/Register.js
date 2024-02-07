@@ -15,8 +15,7 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [passwordError, setPasswordError] = useState("");
-  const { loading } = useSelector((state) => state.user);
-  // const [error, setError] = useState('')
+
 
   const signUp = (event) => {
     event.preventDefault();

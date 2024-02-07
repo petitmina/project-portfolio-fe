@@ -12,6 +12,7 @@ const CartProductCard = ({ item }) => {
   const handleQtyChange = (type) => {
     const newQty = type === "plus" ? item.qty + 1 : item.qty - 1;
     dispatch(cartActions.updateQty(item._id, newQty));
+    
   };
 
   const deleteCart = (id) => {

@@ -12,7 +12,7 @@ const CartPage = () => {
 
   useEffect(() => {
     dispatch(cartActions.getCartList());
-  }, []);
+  }, [cartList]);
 
   return (
     <Container style={{ marginTop: "10%" }}>
@@ -36,5 +36,5 @@ const CartPage = () => {
     </Container>
   );
 };
-// style={{marginTop: '10px', textAlign: 'center', justifyContent:'center'}}
+
 export default CartPage;

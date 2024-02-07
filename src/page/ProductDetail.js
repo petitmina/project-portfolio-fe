@@ -25,6 +25,7 @@ const ProductDetail = () => {
     if (!user) navigate("/login");
     dispatch(cartActions.addToCart({ id, color, qty }));
     navigate("/cart");
+    dispatch(cartActions.getCartList())
   };
 
   const handleQtyChange = (type) => {
