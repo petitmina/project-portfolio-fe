@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import ProductCard from "../../components/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { productActions } from "../../actions/productAction";
+import SortButton from "../../components/SortButton";
 
 const SunglassProductPage = () => {
     const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const SunglassProductPage = () => {
     const [query, setQuery] = useSearchParams();
     const category = query.get("category");
   
+    const [sortedProducts, setSortedProducts] = useState([]);
     useEffect(() => {
       dispatch(productActions.getCategoryProductList({ category: '선글라스' }));
     }, [query]);
@@ -18,10 +20,9 @@ const SunglassProductPage = () => {
   return (
     <Container>
       <Row className="mt-5">
-        {/* 최신순, 가격낮은순, 가격높은순 구현하기 */}
-        <div className="">최신순, 가격낮은순, 가격높은순</div>
-        {productList.length > 0 ? (
-          productList.map((item) => (
+      <SortButton sortedProducts={sortedProducts} setSortedProducts={setSortedProducts}/>
+        {sortedProducts.length > 0 ? (
+          sortedProducts.map((item) => (
             <Col sm={12} md={4} key={item._id}>
               <ProductCard item={item} />
             </Col>
