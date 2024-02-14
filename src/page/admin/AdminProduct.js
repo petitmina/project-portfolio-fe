@@ -35,12 +35,10 @@ const AdminProduct = () => {
   ];
 
   useEffect(() => {
-    //상품리스트 가져오기(url쿼리 맞춰서)
     dispatch(productActions.getProductList({...searchQuery}));
   }, [query]);
 
   useEffect(() => {
-    //검색어나 페이지가 바뀌면 Url 바꿔주기=> url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기
     if (searchQuery.name === "") {
       delete searchQuery.name;
     }
@@ -86,8 +84,7 @@ const AdminProduct = () => {
           deleteItem={deleteItem}
           openEditForm={openEditForm}
         />
-
-        {/* 페이지네이션 작성하기 */}
+    
         <ReactPaginate
           nextLabel="next >"
           onPageChange={handlePageClick}

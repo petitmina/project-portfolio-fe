@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { productActions } from "../actions/productAction";
 import SortButton from "../components/SortButton";
+import SearchBox from "../components/SearchBox";
 
 const AllProduct = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const AllProduct = () => {
     <Container>
       <Row className="mt-5">
         <SortButton sortedProducts={sortedProducts} setSortedProducts={setSortedProducts}/>
+        
         {sortedProducts.length > 0 ? (
           sortedProducts.map((item) => (
             <Col sm={12} md={4} key={item._id}>
