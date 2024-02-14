@@ -7,15 +7,15 @@ const SortButton = ({ setSortedProducts }) => {
   const { productList } = useSelector((state) => state.product);
 
   useEffect(() => {
-    const sorted = productList.slice();
+    
     if (sortOption === "최신순") {
-      sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      productList.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     } else if (sortOption === "낮은 가격순") {
-      sorted.sort((a, b) => a.price - b.price);
+      productList.slice().sort((a, b) => a.price - b.price);
     } else if (sortOption === "높은 가격순") {
-      sorted.sort((a, b) => b.price - a.price);
+      productList.slice().sort((a, b) => b.price - a.price);
     }
-    setSortedProducts(sorted);
+    setSortedProducts(productList);
   }, [sortOption, productList]);
 
   const handleSortChange = (eventKey) => {
