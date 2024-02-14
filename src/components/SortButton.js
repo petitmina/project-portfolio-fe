@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-const SortButton = ({ sortedProducts, setSortedProducts }) => {
+const SortButton = ({ setSortedProducts }) => {
   const [sortOption, setSortOption] = useState("정렬하기");
   const { productList } = useSelector((state) => state.product);
 

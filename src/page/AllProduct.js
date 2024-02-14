@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import ProductCard from "../components/ProductCard";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { productActions } from "../actions/productAction";
 import SortButton from "../components/SortButton";
-import SearchBox from "../components/SearchBox";
 
 const AllProduct = () => {
   const dispatch = useDispatch();
-  const { productList } = useSelector((state) => state.product);
   const [query, setQuery] = useSearchParams();
   const name = query.get("name");
-
-  console.log(productList, "fff");
 
   const [sortedProducts, setSortedProducts] = useState([]);
 

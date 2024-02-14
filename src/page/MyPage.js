@@ -8,7 +8,6 @@ import '../styles/order.style.css'
 const MyPage = () => {
     const dispatch = useDispatch();
     const {orderList} = useSelector((state) => state.order)
-    console.log(orderList, 'check')
 
     useEffect(() => {
         dispatch(orderActions.getOrder());
