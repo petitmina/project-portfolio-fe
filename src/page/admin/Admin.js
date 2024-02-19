@@ -59,7 +59,6 @@ const Admin = () => {
             borderRadius: "10px",
           }}
         >
-          {/* 주문페이지 만들고난 후 링크 변경하기 */}
           <a href="/admin/order" style={{ textDecoration: "none", color: "black" }}>
             주문 관리
           </a>

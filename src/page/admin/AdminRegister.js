@@ -25,7 +25,6 @@ const AdminRegisterPage = () => {
     }
     setPasswordError("");
     setPasswordError(false);
-
     dispatch(
       userActions.registerUser({ email, name, password, level: "admin" }, navigate)
     );

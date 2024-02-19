@@ -27,7 +27,8 @@ const Register = () => {
     }
     setPasswordError("");
     setPasswordError(false);
-    dispatch(userActions.registerUser({email, name, password, level: "customer"}), navigate);
+    dispatch(userActions.registerUser({email, name, password, level: "customer"}));
+    navigate('/login')
   };
 
   const handleChange = (event) => {
@@ -86,10 +87,9 @@ const Register = () => {
             {passwordError}
           </Form.Control.Feedback>
           <br />
-          <Button variant="secondary" type="submit">
+          <Button variant="secondary" type="submit" >
             회원가입 하기
           </Button>
-          {/* <div className="d-grid gap-1"></div> */}
         </Form>
       </Container>
     </>
